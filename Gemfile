@@ -35,8 +35,12 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'httparty'
+
 group :development, :test do
   gem 'pry-rails'
+  gem 'figaro'
+  gem 'faker'
 end
 
 group :development do
@@ -50,6 +54,7 @@ end
 
 group :test do
   gem 'rspec-rails'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
