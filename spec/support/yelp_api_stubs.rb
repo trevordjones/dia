@@ -21,18 +21,14 @@ module YelpApiStubs
 
   def stub_search_response(access_token, search_term, search)
     url = Yelp::API_URL + Yelp::SEARCH_PATH
-    headers = {
-      'Authorization' => "Bearer #{access_token}",
-      'Content-Type' => 'application/json'
-    }
     params = {
       term: search_term,
       location: Yelp::LOCATION,
       limit: Yelp::LIMIT
     }
     stub_request(:get, url)
-      .with(query: params)
-      .to_return(body: search.to_json, headers: headers)
+      .with(query: params, headers: { 'Authorization' => "Bearer #{access_token}" })
+      .to_return(body: search.to_json, headers: { 'Content-Type' => 'application/json' })
   end
 
   def stubbed_search(search_term)
