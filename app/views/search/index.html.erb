@@ -13,10 +13,14 @@
     </div>
   <% end %>
 
-  <% (@search.try(:[], 'businesses') || []).each do |item| %>
+  <% (@search_results || []).each do |item| %>
     <div class="well list-item">
-      <p><%= item['name'] %></p>
+      <p><%= item['name'] %> </p>
       <img src="<%= item['image_url'] %>" alt="" height="250" width"250">
+      <div>
+        <div class="alert alert-danger hidden error-<%= item['id'] %>"></div>
+        <a href="#" class="btn btn-info favorite" data-favorite="<%= item['favorite'] %>" data-id="<%= item['id'] %>"><%= favorite_text(item) %></a>
+      </div>
       <div class="rating" data-rating="<%= item['rating'] %>">
         <i class="star-1">★</i>
         <i class="star-2">★</i>
@@ -25,6 +29,11 @@
         <i class="star-5">★</i>
       </div>
       <p><%= item['review_count'] %> Reviews</p>
+      <%= display_address(item['location']) do |address| %>
+        <p><%= address['address1'] %></p>
+        <p><%= "#{address['city']}, #{address['state']}, #{address['zip_code']}" %>
+      <% end %>
+      <p><%= item['display_phone'] %></p>
     </div>
   <% end %>
 </div>

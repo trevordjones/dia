@@ -28,7 +28,7 @@ class Yelp
         limit: LIMIT
       }
       response = HTTParty.get(url, query: params, headers: header)
-      response.parsed_response
+      response.parsed_response['businesses']
     end
   end
 end

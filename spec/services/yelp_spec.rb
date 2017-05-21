@@ -11,13 +11,13 @@ describe Yelp do
   describe '.search' do
     let(:access_token) { stubbed_access_token['access_token'] }
     let(:search_term) { Faker::Food.ingredient }
-    let(:search_results) { stubbed_search(search_term) }
+    let(:search_results) { stubbed_search }
 
     before { stub_search_response(access_token, search_term, search_results) }
 
     it 'returns yelp search results' do
       resp = Yelp.search(search_term, access_token)
-      expect(resp).to eq(search_results)
+      expect(resp).to eq(search_results['businesses'])
     end
   end
 end

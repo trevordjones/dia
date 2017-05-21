@@ -31,23 +31,29 @@ module YelpApiStubs
       .to_return(body: search.to_json, headers: { 'Content-Type' => 'application/json' })
   end
 
-  def stubbed_search(search_term)
+  def stubbed_search
     response = []
-    10.times { response << stubbed_businesses(search_term) }
+    10.times { response << stubbed_businesses }
 
     {
       'businesses' => response
     }
   end
 
-  def stubbed_businesses(search_term)
+  def stubbed_businesses
     name = Faker::Company.name
     id = name.downcase.tr(' ', '-')
     {
       'id' => id,
       'name' => name,
       'image_url' => Faker::Avatar.image,
-      'categories' => [{'alias' => search_term, 'title' => search_term }]
+      'location' => {
+        'address1' => Faker::Address.street_address,
+        'city' => Faker::Address.city,
+        'state' => Faker::Address.state,
+        'zip_code' => Faker::Address.zip_code
+      },
+      'display_phone' => Faker::PhoneNumber.phone_number
     }
   end
 end

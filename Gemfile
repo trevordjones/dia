@@ -39,9 +39,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'httparty'
 
 group :development, :test do
-  gem 'pry-rails'
   gem 'figaro'
-  gem 'faker'
+  gem 'pry-rails'
 end
 
 group :development do
@@ -54,9 +53,12 @@ group :development do
 end
 
 group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'faker'
   gem 'rspec-rails'
   gem 'webmock'
-  gem 'capybara'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
