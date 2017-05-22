@@ -1,0 +1,23 @@
+<% (reviews || []).each do |review| %>
+  <div class="well list-item">
+    <p><%= review['name'] %> </p>
+    <img src="<%= review['image_url'] %>" alt="" height="250" width"250">
+    <div>
+      <div class="alert alert-danger hidden error-<%= review['id'] %>"></div>
+      <a href="#" class="btn btn-info favorite" data-favorite="<%= review['favorite'] %>" data-id="<%= review['id'] %>"><%= favorite_text(review) %></a>
+    </div>
+    <div class="rating" data-rating="<%= review['rating'] %>">
+      <i class="star-1">★</i>
+      <i class="star-2">★</i>
+      <i class="star-3">★</i>
+      <i class="star-4">★</i>
+      <i class="star-5">★</i>
+    </div>
+    <p><%= review['review_count'] %> Reviews</p>
+    <%= display_address(review['location']) do |address| %>
+      <p><%= address['address1'] %></p>
+      <p><%= "#{address['city']}, #{address['state']}, #{address['zip_code']}" %>
+    <% end %>
+    <p><%= review['display_phone'] %></p>
+  </div>
+<% end %>

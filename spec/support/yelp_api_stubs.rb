@@ -56,4 +56,29 @@ module YelpApiStubs
       'display_phone' => Faker::PhoneNumber.phone_number
     }
   end
+
+  def stub_favorites(favorites, access_token)
+    favorites.each do |favorite|
+      url = Yelp::API_URL + Yelp::REVIEW_PATH + favorite.yelp_id
+      stub_request(:get, url)
+        .with(headers: { 'Authorization' => "Bearer #{access_token}" })
+        .to_return(body: stubbed_favorite(favorite).to_json, headers: { 'Content-Type' => 'application/json' })
+    end
+  end
+
+  def stubbed_favorite(favorite)
+    name = favorite.yelp_id.capitalize.tr('-', ' ')
+    {
+      'id' => favorite.yelp_id,
+      'name' => name,
+      'image_url' => Faker::Avatar.image,
+      'location' => {
+        'address1' => Faker::Address.street_address,
+        'city' => Faker::Address.city,
+        'state' => Faker::Address.state,
+        'zip_code' => Faker::Address.zip_code
+      },
+      'display_phone' => Faker::PhoneNumber.phone_number
+    }
+  end
 end
